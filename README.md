@@ -2,12 +2,12 @@
 Analyzing Medicare data from CMS via Spark.
 
 ## Introduction
-This is a short example for me to learn Spark while analyzing (recently)publicly available claims data for Medicare. It processes a list of HCPCS/CPT codes and their short descriptions in the order of total service line counts. The total sum of unique members (unique per each physician/provider) is also provided, as is a quick calculation to see the utilization of a particular code.
+This is a short example for me to learn Spark while analyzing (recently) publicly available claims data for Medicare. It processes a list of HCPCS/CPT codes and their short descriptions in the order of total service line counts. The total sum of unique members (unique per each physician/provider) is also provided, as is a quick calculation to see the utilization of a particular code.
 
 The use of Spark allows the manipulation of about 9 million rows in a short amount of time using the Spark variant of SQL. Adjust the SQL portion of the python file to generate different results for your purposes.
 
 ## How to run
-Run the following command line to download the dependent data (CMS-provided Provider Utilization File from 2013).
+Run the following command line to download the dependent data (CMS-provided Provider Utilization File from 2013: https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Physician-and-Other-Supplier2013.html).
 ```
 $ ./download_data.sh
 ```
@@ -24,7 +24,7 @@ $ spark-submit --master local[*] --packages com.databricks:spark-csv_2.10:1.1.0 
 
 The resulting file will be saved into `hcpcs.csv`. Watch the progress at `http://localhost:4040`.
 
-If the resulting file is fragmentized as a directory, use the following command line to reassemble the result files.
+If the resulting file is fragmentized as a directory, use the following command line to reassemble the result files. It will save to `result.csv`.
 
 ```
 $ (echo "HCPCS,DESC,LINE_SRVC_SUM,BENE_UNIQUE_SUM,UTILIZATION"; cat hcpcs.csv/part-*) > result.csv
